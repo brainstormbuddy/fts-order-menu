@@ -9,10 +9,10 @@ import { Pizza } from '../../models/pizza.model';
 
 @Component({
   selector: 'app-pizza-list',
-  standalone: true,
-  imports: [CommonModule, PizzaItemComponent],
   templateUrl: './pizza-list.component.html',
   styleUrl: './pizza-list.component.scss',
+  imports: [CommonModule, PizzaItemComponent],
+  standalone: true,
 })
 export class PizzaListComponent {
   pizzas: Pizza[] = [];
@@ -21,6 +21,9 @@ export class PizzaListComponent {
 
   ngOnInit(): void {
     this.pizzas = this.pizzaService.Pizzas;
-    console.log('pizza-list-component ==>', this.pizzas);
+  }
+
+  trackByFn(index: number, pizza: Pizza): number {
+    return pizza.item.itemId;
   }
 }

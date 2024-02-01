@@ -5,14 +5,14 @@ import { PizzaService } from '../../services/pizza.service';
 
 import { PizzaPriceComponent } from '../pizza-price/pizza-price.component';
 
-import { Pizza } from '../../models/pizza.model';
+import { Pizza, PizzaPrice } from '../../models/pizza.model';
 
 @Component({
   selector: 'app-pizza-item',
-  standalone: true,
-  imports: [CommonModule, PizzaPriceComponent],
   templateUrl: './pizza-item.component.html',
   styleUrl: './pizza-item.component.scss',
+  imports: [CommonModule, PizzaPriceComponent],
+  standalone: true,
 })
 export class PizzaItemComponent {
   @Input() pizza!: Pizza;
@@ -23,5 +23,10 @@ export class PizzaItemComponent {
 
   undo() {
     // Implement undo functionality here
+    this.pizzaService.resetPizza(this.pizza.item.itemId);
+  }
+
+  trackByFn(index: number, price: PizzaPrice): number {
+    return price.sizeId;
   }
 }
